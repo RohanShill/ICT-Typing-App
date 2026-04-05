@@ -1,110 +1,84 @@
 # 💻 ICT Typing Master
 
-An advanced, interactive Typing Practice Web Application designed specifically for Information and Communication Technology (ICT) students. Built with React and Tailwind CSS, this platform helps students improve their typing speed and accuracy through various structured challenges (words, sentences, and paragraphs) with immersive real-time feedback.
+An advanced, interactive Typing Practice Application designed specifically for Information and Communication Technology (ICT) students. Built with **React** and **Tailwind CSS** for the web, and packaged powerfully with **Electron** and **Squirrel** for a seamless, installable native Windows Desktop experience!
 
 ---
 
 ## ✨ Features
 
-### 👨‍🎓 **Student Typing App**
+### 👨‍🎓 **Student Typing Engine**
 * **Immersive Terminal Interface**: The typing sandbox looks and feels like a real coding environment with glowing neon-green correct inputs and an authentic command-line layout.
-* **Real-time Live Metrics**: Dynamic tracking of your Words per Minute (WPM), Accuracy percentage, and Mistakes count as you type.
-* **Flexible Durations**: 15s, 30s, 60s, 120s, and 5-minute endurance challenges.
-* **Live Error Handling**: Precision highlighting system prevents typing errors from polluting the interface while keeping track of missed strokes.
+* **Real-time Metrics**: Dynamic tracking of your Words per Minute (WPM), Accuracy percentage, and Mistakes count as you type using an exact elapsed-time engine.
+* **Flexible Durations**: 15s, 30s, 60s, 120s, and a brutal 5-minute endurance challenge.
+
+### 💼 **Native Windows Desktop Application**
+* **Installer Setup**: Seamless 1-click silent installer (`Setup.exe`) powered by Squirrel that instantly registers the app to your Desktop and Start Menu natively.
+* **Offline Execution**: Fully compiled with Electron to run entirely independently of a web browser.
+* **Hardware Integration**: Hooks directly into the system for a fully polished, distraction-free fullscreen typing environment.
 
 ### 🛡️ **Admin Panel**
-* **Protected Dashboard**: A secure local-storage based administration portal.
-* **Content Management System**: Easily **Add, Edit, and Delete** practice contents (words, sentences, paragraphs). 
-* **Dynamic Content Filtering**: Instantly sort contents based on difficulty (Beginner, Intermediate, Advanced) and content type.
-* **Pre-bundled Data**: Pre-loaded default ICT terms and phrases for an instant deployment experience.
-
-### 🎨 **UI / UX Upgrades**
-* Fully Responsive Design (Mobile & Desktop).
-* **Dark Mode** toggle available globally in a beautiful Glassmorphism navigation bar.
-* Smooth, buttery transition animations built into page navigation.
+* **Content Management System**: Securely **Add, Edit, and Delete** practice contents (words, sentences, paragraphs) dynamically.
+* **Filtering**: Instantly sort contents based on difficulty (Beginner, Intermediate, Advanced) and content type.
 
 ---
 
 ## 🛠️ Technology Stack
 
-* **Frontend Framework**: [React 18](https://react.dev/) (Vite scaffolding)
+* **Core Engine**: [React 18](https://react.dev/) (Vite scaffolding)
+* **Desktop Wrapper**: [Electron v41](https://www.electronjs.org/)
+* **Packaging Tool**: `electron-packager` & `electron-winstaller`
 * **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-* **Routing**: React Router DOM (v6)
-* **Icons**: [Lucide React](https://lucide.dev/)
-* **State & Persistence**: React Hooks (`useState`, `useEffect`, `useMemo`) combined with Browser `localStorage`.
+* **State & Persistence**: React Hooks combined with local storage arrays.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Building the Windows Installer (`.exe`)
 
-To get a local copy up and running, follow these simple steps.
+Want to compile the true native Desktop application yourself? We completely bypassed tricky Windows Defender code-signing blocks by using raw standalone compression pipelines!
 
-### Prerequisites
+### 1. Requirements
+Make sure you have `Node.js` installed.
+```bash
+git clone https://github.com/RohanShill/ICT-Typing-App.git
+cd "ICT Typing App"
+npm install
+```
 
-You need `Node.js` installed on your system.
-* Check if Node.js is installed by running: `node -v`
+### 2. Generate the Standalone Executable
+You can build the underlying portable executable folder first:
+```bash
+npm run build
+npx electron-packager . "ICT Typing Master" --platform=win32 --arch=x64 --out=release --overwrite
+```
 
-### Installation
+### 3. Generate the 1-Click Installer
+Once the portable app is generated, you can run our custom script to compress it into a professional Squirrel Setup File (`Setup.exe`):
+```bash
+node makeInstaller.cjs
+```
+Your final shareable installer will automatically appear in:
+`release/Installer/ICT-Typing-Master-Setup.exe`!
 
-1. **Clone the repository** (if you aren't already locally installed):
-   ```bash
-   git clone https://github.com/YourUsername/ict-typing-master.git
-   ```
+---
 
-2. **Navigate to the directory**:
-   ```bash
-   cd "ICT Typing App"
-   ```
+## 🌐 Running as a Web App
 
-3. **Install exact dependencies**:
-   ```bash
-   npm install
-   ```
-
-4. **Start the Development Server**:
-   ```bash
-   npm run dev
-   ```
-
-5. Open your browser and navigate to the localhost port provided in the terminal (usually `http://localhost:5173`).
+If you prefer to run it strictly in your browser (development mode):
+```bash
+npm run dev
+```
 
 ---
 
 ## 🔐 Default Admin Credentials
 
-To verify your custom sentences, words, and modify tests dynamically, log in at the `/admin` page.
+To verify your custom sentences, words, and modify tests dynamically via the web GUI or Desktop GUI:
 
 * **Username:** `admin`
 * **Password:** `1234`
 
 ---
 
-## 📂 Project Structure Overview
-
-```text
-📦 ICT Typing App
- ┣ 📂 src
- ┃ ┣ 📂 components
- ┃ ┃ ┣ 📜 ContentForm.jsx       # Modal for modifying tests
- ┃ ┃ ┗ 📜 Navbar.jsx            # Top app navigation
- ┃ ┣ 📂 pages
- ┃ ┃ ┣ 📜 AdminDashboard.jsx    # Table of current database
- ┃ ┃ ┣ 📜 AdminLogin.jsx        # Credentials portal
- ┃ ┃ ┣ 📜 Home.jsx              # Student Start Area
- ┃ ┃ ┣ 📜 Result.jsx            # Summary Screen (WPM/Accuracy)
- ┃ ┃ ┗ 📜 TypingTest.jsx        # Terminal Typing Sandbox 
- ┃ ┣ 📂 utils
- ┃ ┃ ┗ 📜 storage.js            # LocalStorage handlers
- ┃ ┣ 📜 App.jsx                 # Routing logic
- ┃ ┣ 📜 index.css               # Tech Grid & Glow utilities
- ┃ ┗ 📜 main.jsx                # React Entry point
- ┣ 📜 index.html
- ┣ 📜 package.json
- ┗ 📜 vite.config.js
-```
-
----
-
 <p align="center">
-  <i>Developed to enhance typing literacy for the next generation of coders.</i>
+  <i>Built with ❤️ by <a href="https://github.com/RohanShill">Rohan Shill</a></i>
 </p>
